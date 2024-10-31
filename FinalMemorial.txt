@@ -1,0 +1,113 @@
+#include <GL/glut.h>
+#include <cmath> // Include the math library
+
+void init() {
+    glClearColor(1.0, 1.0, 1.0, 1.0); // Set background to white
+    glLineWidth(2.0); // Set line width
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-200, 200, -200, 200); // Set the coordinate system
+}
+
+void drawCircle(float cx, float cy, float radius) {
+    glBegin(GL_LINE_LOOP);
+    int num_segments = 100; // Higher value for a smoother circle
+    for (int i = 0; i <= num_segments; i++) {
+        float theta = 2.0f * 3.1415926f * float(i) / float(num_segments);
+        //float nextTheta = 2.0f * 3.1415926f * float(i + 1) / float(num_segments);
+
+        float x1 = radius * cosf(theta);
+        float y1 = radius * sinf(theta);
+        //float x2 = radius * cosf(nextTheta);
+        //float y2 = radius * sinf(nextTheta);
+
+        glVertex2f(x1 + cx, y1 + cy);
+        //glVertex2f(x2 + cx, y2 + cy);
+    }
+    glEnd();
+}
+
+void drawStructure() {
+    glColor3f(0.0, 0.0, 0.0);
+    glBegin(GL_LINES);
+
+    // Draw main triangular structure
+    glVertex2f(0, 150);
+    glVertex2f(-100, -150);
+
+    glVertex2f(0, 150);
+    glVertex2f(100, -150);
+
+    // Draw inner triangular shape
+    glVertex2f(0, 130);
+    glVertex2f(-70, -150);
+
+    glVertex2f(0, 130);
+    glVertex2f(70, -150);
+
+    glVertex2f(0, 120);
+    glVertex2f(-50, -150);
+
+    glVertex2f(0, 120);
+    glVertex2f(50, -150);
+
+    glVertex2f(0, 110);
+    glVertex2f(-30, -150);
+
+    glVertex2f(0, 110);
+    glVertex2f(30, -150);
+
+    glVertex2f(0, 100);
+    glVertex2f(-10, -150);
+
+    glVertex2f(0, 100);
+    glVertex2f(10, -150);
+
+    // Draw base horizontal lines
+    glVertex2f(-100, -150);
+    glVertex2f(100, -150);
+
+    glVertex2f(-70, -150);
+    glVertex2f(70, -150);
+
+    // Draw the flag pole
+    glVertex2f(100, 150);
+    glVertex2f(100, -150);
+
+    // Draw flag as four connected lines (rectangle outline)
+    glVertex2f(100, 130);
+    glVertex2f(130, 130);
+
+    glVertex2f(130, 130);
+    glVertex2f(130, 110);
+
+    glVertex2f(130, 110);
+    glVertex2f(100, 110);
+
+    glVertex2f(100, 110);
+    glVertex2f(100, 130);
+
+    glEnd();
+
+    // Draw circle in flag (Bangladesh flag-style)
+    drawCircle(115.0, 120.0, 5.0);
+
+    glFlush();
+}
+
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    drawStructure();
+    glFlush();
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(500, 500);
+    glutCreateWindow("2D Structure with Static Flag");
+    init();
+    glutDisplayFunc(display);
+    glutMainLoop();
+    return 0;
+}

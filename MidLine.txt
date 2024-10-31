@@ -1,0 +1,25 @@
+import matplotlib.pyplot as plt
+def MidPointLine(a1,b1,a2,b2):
+    dx=abs(a1-a2)
+    dy=abs(b1-b2)
+    d=dy-(dx/2)
+    x=a1
+    y=b1
+    X=[]
+    Y=[]
+    X.append(x)
+    Y.append(y)
+    while(x<a2):
+        x=x+1
+        if d<0:
+            d+=dy
+        else:
+            d+=(dy-dx)
+            y+=1
+        X.append(x)
+        Y.append(y)
+    plt.plot(X,Y,marker='o')
+    plt.show()
+    return list(zip(X,Y))
+Inter=MidPointLine(a1=3,b1=5,a2=9,b2=10)   
+print(Inter)

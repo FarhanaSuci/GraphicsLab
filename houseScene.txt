@@ -1,0 +1,122 @@
+#include <GL/glut.h>
+#include <cmath> // Add this line to use cos() and sin() functions
+
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Draw the ground
+    glColor3f(0.6f, 0.8f, 0.4f); // Light green color for the ground
+    glBegin(GL_QUADS);
+    glVertex2f(-1.0f, -0.5f);
+    glVertex2f(1.0f, -0.5f);
+    glVertex2f(1.0f, -1.0f);
+    glVertex2f(-1.0f, -1.0f);
+    glEnd();
+
+    // Draw the house base
+    glColor3f(0.8f, 0.5f, 0.2f); // Light brown color for the house
+    glBegin(GL_QUADS);
+    glVertex2f(-0.6f, -0.5f);
+    glVertex2f(-0.2f, -0.5f);
+    glVertex2f(-0.2f, -0.1f);
+    glVertex2f(-0.6f, -0.1f);
+    glEnd();
+
+    // Draw the roof of the house
+    glColor3f(0.5f, 0.1f, 0.1f); // Dark red color for the roof
+    glBegin(GL_TRIANGLES);
+    glVertex2f(-0.65f, -0.1f);   // Left corner
+    glVertex2f(-0.15f, -0.1f);   // Right corner
+    glVertex2f(-0.4f, 0.2f);     // Top corner
+    glEnd();
+
+    // Draw the door of the house
+    glColor3f(0.4f, 0.2f, 0.0f); // Dark brown color for the door
+    glBegin(GL_QUADS);
+    glVertex2f(-0.5f, -0.5f);
+    glVertex2f(-0.4f, -0.5f);
+    glVertex2f(-0.4f, -0.3f);
+    glVertex2f(-0.5f, -0.3f);
+    glEnd();
+
+    // Draw the window of the house
+    glColor3f(0.7f, 0.9f, 1.0f); // Light blue color for the window
+    glBegin(GL_QUADS);
+    glVertex2f(-0.35f, -0.35f);
+    glVertex2f(-0.25f, -0.35f);
+    glVertex2f(-0.25f, -0.25f);
+    glVertex2f(-0.35f, -0.25f);
+    glEnd();
+
+    // Draw the tree trunk
+    glColor3f(0.4f, 0.2f, 0.0f); // Brown color for the tree trunk
+    glBegin(GL_QUADS);
+    glVertex2f(0.5f, -0.5f);
+    glVertex2f(0.55f, -0.5f);
+    glVertex2f(0.55f, -0.3f);
+    glVertex2f(0.5f, -0.3f);
+    glEnd();
+
+    // Draw the tree leaves as circles
+    glColor3f(0.0f, 0.6f, 0.0f); // Green color for the leaves
+    float radius = 0.15f;
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(0.525f, -0.15f); // Center of the top circle
+    for (int i = 0; i <= 100; i++) {
+        float angle = 2.0f * 3.14159f * i / 100;
+        float x = radius * cos(angle) + 0.525f;
+        float y = radius * sin(angle) - 0.15f;
+        glVertex2f(x, y);
+    }
+    glEnd();
+
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(0.45f, -0.25f); // Center of the left circle
+    for (int i = 0; i <= 100; i++) {
+        float angle = 2.0f * 3.14159f * i / 100;
+        float x = radius * cos(angle) + 0.45f;
+        float y = radius * sin(angle) - 0.25f;
+        glVertex2f(x, y);
+    }
+    glEnd();
+
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(0.6f, -0.25f); // Center of the right circle
+    for (int i = 0; i <= 100; i++) {
+        float angle = 2.0f * 3.14159f * i / 100;
+        float x = radius * cos(angle) + 0.6f;
+        float y = radius * sin(angle) - 0.25f;
+        glVertex2f(x, y);
+    }
+    glEnd();
+
+    // Draw the path to the house
+    glColor3f(0.5f, 0.4f, 0.3f); // Light brown color for the path
+    glBegin(GL_POLYGON);
+    glVertex2f(-0.45f, -0.5f);
+    glVertex2f(-0.35f, -0.5f);
+    glVertex2f(-0.2f, -1.0f);
+    glVertex2f(-0.6f, -1.0f);
+    glEnd();
+
+    glFlush();
+}
+
+void init() {
+    glClearColor(0.6f, 0.9f, 1.0f, 1.0f); // Sky blue background color
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-1.0, 1.0, -1.0, 1.0);     // Set coordinate system
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(800, 600);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Simple Scene with House, Tree, and Path");
+    init();
+    glutDisplayFunc(display);
+    glutMainLoop();
+    return 0;
+}

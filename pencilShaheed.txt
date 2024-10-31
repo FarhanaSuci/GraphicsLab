@@ -1,0 +1,92 @@
+#include <GL/glut.h>
+#include <cmath> // For trigonometric functions
+
+void init() {
+    glClearColor(1.0, 1.0, 1.0, 1.0); // Set background to white
+    glColor3f(0.0, 0.0, 0.0); // Set drawing color to black
+    glLineWidth(2.0); // Set line width
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-1.0, 1.0, -1.0, 1.0); // Set the coordinate system to normalized device coordinates
+}
+
+void drawCircle(float cx, float cy, float radius) {
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i <= 100; i++) {
+        float angle = 2.0f * 3.1416f * i / 100; // Approximate pi to 3.1416
+        float x = radius * cos(angle);
+        float y = radius * sin(angle);
+        glVertex2f(x + cx, y + cy); // Draw each vertex of the circle
+    }
+    glEnd();
+}
+
+void drawShaheedMinar() {
+    glBegin(GL_LINES);
+
+    // Base platform
+    glVertex2f(-0.7, -0.8);
+    glVertex2f(0.7, -0.8);
+
+    // Left outer rectangle
+    glVertex2f(-0.6, -0.8);
+    glVertex2f(-0.6, -0.2);
+    glVertex2f(-0.55, -0.8);
+    glVertex2f(-0.55, -0.2);
+    glVertex2f(-0.6, -0.2);
+    glVertex2f(-0.55, -0.2);
+
+    // Right outer rectangle
+    glVertex2f(0.6, -0.8);
+    glVertex2f(0.6, -0.2);
+    glVertex2f(0.55, -0.8);
+    glVertex2f(0.55, -0.2);
+    glVertex2f(0.6, -0.2);
+    glVertex2f(0.55, -0.2);
+
+    // Inner left rectangle
+    glVertex2f(-0.3, -0.8);
+    glVertex2f(-0.3, 0.2);
+    glVertex2f(-0.25, -0.8);
+    glVertex2f(-0.25, 0.2);
+    glVertex2f(-0.3, 0.2);
+    glVertex2f(-0.25, 0.2);
+
+    // Inner right rectangle
+    glVertex2f(0.3, -0.8);
+    glVertex2f(0.3, 0.2);
+    glVertex2f(0.25, -0.8);
+    glVertex2f(0.25, 0.2);
+    glVertex2f(0.3, 0.2);
+    glVertex2f(0.25, 0.2);
+
+    // Central tall rectangle
+    glVertex2f(-0.1, -0.8);
+    glVertex2f(-0.1, 0.8);
+    glVertex2f(0.1, -0.8);
+    glVertex2f(0.1, 0.8);
+    glVertex2f(-0.1, 0.8);
+    glVertex2f(0.1, 0.8);
+
+    glEnd();
+
+    // Draw the circle in the background (normalized position and radius)
+    drawCircle(0.0, 0.0, 0.3);
+}
+
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    drawShaheedMinar();
+    glFlush();
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(600, 600);
+    glutCreateWindow("Shaheed Minar Representation (Normalized)");
+    init();
+    glutDisplayFunc(display);
+    glutMainLoop();
+    return 0;
+}

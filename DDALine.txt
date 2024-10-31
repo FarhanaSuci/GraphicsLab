@@ -1,0 +1,24 @@
+import matplotlib.pyplot as plt
+def DDA_ALgorithm(x0,y0,x1,y1):
+    dx=abs(x0-x1)
+    dy=abs(y0-y1)
+    steps=max(dx,dy)
+    x_cordinate_steps=dx/steps
+    y_cordinate_steps=dy/steps
+    x=float(x0)
+    y=float(y0)
+    x_coordinates=[]
+    y_coordinates=[]
+    for i in range(steps):
+        x_coordinates.append(x)
+        y_coordinates.append(y)
+        x=x+x_cordinate_steps
+        y=y+y_cordinate_steps
+    plt.plot(x_coordinates,y_coordinates,marker='o')
+    plt.show()
+    return list(zip(x_coordinates,y_coordinates))
+x0, y0 = 15, 15
+x1, y1 = 70, 80
+DDA_points=DDA_ALgorithm(x0,y0,x1,y1)
+print("Intermediary points are :",DDA_points)
+
